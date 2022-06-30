@@ -1,12 +1,11 @@
 uniform float time;
 uniform samplerCube uPerlin;
-varying vec3 vPosition;
-varying vec3 vNormal;
 
 varying vec3 vLayer0;
 varying vec3 vLayer1;
 varying vec3 vLayer2;
 varying vec3 eyeVector;
+varying vec3 vertexNormal;
 
 vec3 brightnessToColor( float b){
   b*= 0.25;
@@ -14,7 +13,7 @@ vec3 brightnessToColor( float b){
 }
 
 float Fresnel(vec3 eyeVector, vec3 worldNormal){
-  return pow(1. + dot(eyeVector, worldNormal),3.0);
+  return pow(1.5 + dot(eyeVector, worldNormal),10.0);
 }
 
 
@@ -28,7 +27,7 @@ float superSun(){
 
 void main(){
 
-  float fres = Fresnel(eyeVector, vNormal);
+  float fres = Fresnel(eyeVector, vertexNormal);
 
   float brightness = superSun();
   brightness = brightness*1.2+ 1.;
