@@ -6,6 +6,8 @@ import vertex from "./shaders/vertex.glsl";
 import fragment from "./shaders/fragment.glsl";
 import vertexSun from "./shadersSun/vertex.glsl";
 import fragmentSun from "./shadersSun/fragment.glsl";
+import vertexAround from "./shadersAround/vertex.glsl";
+import fragmentAround from "./shadersAround/fragment.glsl";
 
 class App {
   constructor() {
@@ -17,7 +19,7 @@ class App {
     this._renderer = new THREE.WebGLRenderer({ antialias: true });
     this._renderer.setPixelRatio(window.devicePixelRatio);
     this._renderer.setSize(this.width, this.height);
-    this._renderer.setClearColor(0x000000, 1);
+    this._renderer.setClearColor(0xeeeeee, 1);
     this._renderer.physicallyCorrectLights = true;
     this._renderer.outputEncoding = THREE.sRGBEncoding;
     this._container.appendChild(this._renderer.domElement);
@@ -34,6 +36,7 @@ class App {
     // utils
     this.addTexture();
     this._setObject();
+    this.addAround();
     this.resize();
     this.render();
     this._setupResize();
@@ -61,6 +64,30 @@ class App {
     this._camera.aspect = this.width / this.height;
 
     this._camera.updateProjectionMatrix();
+  }
+
+  addAround() {
+    this.materialAround = new THREE.ShaderMaterial({
+      extensions: {
+        derivatives: "#extension GL_OES_standard_derivatives : enable",
+      },
+      side: THREE.BackSide,
+      uniforms: {
+        time: { type: "f", value: 0 },
+        texture: { value: "none" },
+        resolution: { type: "v4", value: new THREE.Vector4() },
+      },
+      transparent: true,
+      // wireframe: true,
+      vertexShader: vertexAround,
+      fragmentShader: fragmentAround,
+    });
+
+    this.aroundGeo = new THREE.SphereBufferGeometry(1.2, 36, 36);
+
+    this.sunAround = new THREE.Mesh(this.aroundGeo, this.materialAround);
+
+    this._scene.add(this.sunAround);
   }
 
   addTexture() {

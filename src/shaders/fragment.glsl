@@ -151,10 +151,10 @@ float fbm(vec4 p){
 void main(){
   vec3 color = vec3(0.0);
 
-  vec4 p = vec4(vPosition*5.,time*0.01);
+  vec4 p = vec4(vPosition*3.,time*0.01);
   float noisy = fbm(p);
 
-  vec4 p1 =  vec4(vPosition*5.,time*0.01);
+  vec4 p1 =  vec4(vPosition*3.,time*0.01);
   float spots = max(snoise(p1), 0.);
 
   color = vec3(noisy);

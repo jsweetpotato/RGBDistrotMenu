@@ -14,7 +14,7 @@ vec3 brightnessToColor( float b){
 }
 
 float Fresnel(vec3 eyeVector, vec3 worldNormal){
-  return pow(1. + dot(eyeVector, worldNormal),3.0);
+  return pow(1.2 + dot(eyeVector, worldNormal),4.0);
 }
 
 
@@ -28,14 +28,20 @@ float superSun(){
 
 void main(){
 
-  float fres = Fresnel(eyeVector, vNormal);
+  float radial = 1. - vPosition.z;
 
-  float brightness = superSun();
-  brightness = brightness*1.2+ 1.;
-  brightness += pow(fres,0.2);
+  radial *= radial;
 
-  vec3 col = brightnessToColor(brightness);
+  radial -= radial/4.;
 
-  gl_FragColor = vec4(col,1.0);
+
+  float brightness = 1.+ radial*0.83;
+
+  gl_FragColor.rgb = brightnessToColor(brightness)*radial ;
+  gl_FragColor.a = radial*radial*radial*radial;
+  // vec3 col = brightnessToColor(brightness);
+ 
+
+  // gl_FragColor = vec4(radial,0.0,0.0,1.0);
   // gl_FragColor = vec4(vec3(fres),1.0);
 }
