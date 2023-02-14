@@ -1,13 +1,14 @@
-import * as THREE from "three";
-import * as dat from "dat.gui";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+// import * as THREE from "three";
+// import * as dat from "dat.gui";
+// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { vertex, fragment, vertexSun, fragmentSun, vertexAround, fragmentAround } from "./data.js";
 
-import vertex from "./shaders/vertex.glsl";
-import fragment from "./shaders/fragment.glsl";
-import vertexSun from "./shadersSun/vertex.glsl";
-import fragmentSun from "./shadersSun/fragment.glsl";
-import vertexAround from "./shadersAround/vertex.glsl";
-import fragmentAround from "./shadersAround/fragment.glsl";
+// import vertex from "./shaders/vertex.glsl";
+// import fragment from "./shaders/fragment.glsl";
+// import vertexSun from "./shadersSun/vertex.glsl";
+// import fragmentSun from "./shadersSun/fragment.glsl";
+// import vertexAround from "./shadersAround/vertex.glsl";
+// import fragmentAround from "./shadersAround/fragment.glsl";
 
 class App {
   constructor() {
@@ -27,7 +28,9 @@ class App {
     this._camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.001, 1000);
     this._camera.position.z = 2.5;
 
-    this.controls = new OrbitControls(this._camera, this._container);
+    // this.controls = new OrbitControls(this._camera, this._container);
+    // this.controls.enableDamping = true;
+    // this.controls.dampingFactor = 0.1;
 
     // create scene
     this.time = 0;
@@ -49,8 +52,8 @@ class App {
     this.settings = {
       progress: 0,
     };
-    const gui = new dat.GUI();
-    gui.add(this.settings, "progress", 0, 1, 0.01);
+    // const gui = new dat.GUI();
+    // gui.add(this.settings, "progress", 0, 1, 0.01);
   }
 
   _setupResize() {
@@ -162,6 +165,7 @@ class App {
 
   render() {
     if (!this.isPlaying) return;
+    // this.controls.update();
 
     this.cubeCamera.update(this._renderer, this._scene1);
     this.time += 0.05;
