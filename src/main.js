@@ -86,7 +86,7 @@ class App {
       fragmentShader: fragmentAround,
     });
 
-    this.aroundGeo = new THREE.SphereBufferGeometry(1.2, 36, 36);
+    this.aroundGeo = new THREE.SphereGeometry(1.2, 36, 36);
 
     this.sunAround = new THREE.Mesh(this.aroundGeo, this.materialAround);
 
@@ -121,7 +121,7 @@ class App {
       fragmentShader: fragment,
     });
 
-    this.perlinGeo = new THREE.SphereBufferGeometry(1, 36, 36);
+    this.perlinGeo = new THREE.SphereGeometry(1, 36, 36);
 
     this.perlin = new THREE.Mesh(this.perlinGeo, this.materialPerlin);
 
@@ -146,7 +146,7 @@ class App {
       fragmentShader: fragmentSun,
     });
 
-    this.geometrySun = new THREE.SphereBufferGeometry(1, 36, 36);
+    this.geometrySun = new THREE.SphereGeometry(1, 36, 36);
     this.obj = new THREE.Mesh(this.geometrySun, this.materialSun);
 
     this._scene.add(this.obj);
